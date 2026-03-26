@@ -37,10 +37,9 @@ def main():
     # prompt the user to enter job names and their corresponding burst times until they indicate they are done
     jobs = []
     burst_time = []
-    while True:
-        job = input("Enter job name ('done' to finish):")
-        if job.lower() == 'done':
-            break
+    no_process = int(input("Enter the number of processes: "))
+    for i in range(no_process):
+        job = input("Enter job name:")
         jobs.append(job)
         burst = int(input("Enter burst time for the job:"))
         while burst < 0:
