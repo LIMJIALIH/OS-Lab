@@ -8,7 +8,7 @@ class MemoryBlock:
     size: int
 
 
-class FirstFit:
+class BestFit:
     def __init__(self, num_memory_block: int, max_block_size: int, min_block_size: int):
         self.num_memory_block = num_memory_block
         self.max_block_size = max_block_size
@@ -133,7 +133,7 @@ def main():
                 print("Minimum block size cannot be greater than maximum block size.\n")
                 continue
 
-            simulator = FirstFit(num_memory_block, max_block_size, min_block_size)
+            simulator = BestFit(num_memory_block, max_block_size, min_block_size)
             break
 
         except ValueError:
