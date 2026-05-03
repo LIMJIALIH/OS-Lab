@@ -111,12 +111,12 @@ class BankersResource:
         print("\n--- 2. Make Request ---")
         job_id = int(input(f"Enter Job ID making the request (1 to {len(self.jobs)}): "))
 
-        if job_id < 0 or job_id >= len(self.jobs):
+        if job_id < 1 or job_id > len(self.jobs):
             print("Invalid Job ID.")
             return
 
         request = int(input(f"Enter number of resources requested by Job {job_id}: "))
-        job = self.jobs[job_id]
+        job = self.jobs[job_id-1]
 
         # Check 1: Is the request valid (not asking for more than declared max)?
         if request > job['rem']:
