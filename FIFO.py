@@ -1,0 +1,47 @@
+def FIFO(pages, frame_size):
+    # Initialize frames array with None values (pre-allocate memory)
+    frames = [None] * frame_size
+    page_faults = 0  # Counter for page faults (page not in memory)
+    replace = 0  # Pointer to track which frame position to replace next (FIFO order)
+
+    print(f"Number of Frames: {frame_size}")
+    print(f"Page: {pages}\n")
+
+    # Process each page reference
+    for i in range(len(pages)):
+        status = "Hit"
+        # Check if page is already in memory
+        if pages[i] not in frames:
+            # Page not found - PAGE FAULT occurred
+            status = "Fault"
+            frames[replace] = pages[i]  # Replace page at current pointer position
+            replace = (replace + 1) % frame_size  # Move pointer to next frame (circular)
+            page_faults += 1  # Increment fault counter
+        display_frames = [f for f in frames if f is not None] # Filter out None values to display only actual pages in memory
+        # Print current page reference, status (hit or fault), and current state of frames
+        print(f"{i+1:<8} Page: {pages[i]:<10} Status: {status:<15} Frames: {display_frames} ")
+
+    # Print statistics
+    print("=" * 70)
+    print(f"Total Page Hits: {len(pages) - page_faults}")
+    print(f"Total Page Faults: {page_faults}")
+    print(f"Page Fault Rate: {page_faults / len(pages) * 100:.2f}%")
+    print("=" * 70)
+
+
+if __name__ == "__main__":
+    pages = []
+    print("=" * 70)
+    print("FIRST IN FIRST OUT (FIFO) PAGE REPLACEMENT")
+    print("=" * 70)
+    # Get frame size from user
+    frame_size = int(input("Enter the number of frames: "))
+    # Get number of page references from user
+    no_pages = int(input("Enter the number of pages: "))
+    # Collect page references from user
+    for i in range(no_pages):
+        page = int(input(f"{i+1}. Enter page number: "))
+        pages.append(page)
+    print("=" * 70)
+    # Run FIFO simulation
+    FIFO(pages, frame_size)
