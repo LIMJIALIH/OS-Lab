@@ -32,6 +32,28 @@ def FIFO(pages, frame_size):
     print(f"Page Fault Rate: {page_faults / len(pages) * 100:.2f}%")
     print("=" * 50)
 
+def valid_input(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value <= 0:
+                print("Value must be a greater than 0. Please try again.")
+                continue
+            return value
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+
+def positive_input(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value < 0:
+                print("Value must be a positive integer. Please try again.")
+                continue
+            return value
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+
 
 if __name__ == "__main__":
     pages = []
@@ -39,12 +61,12 @@ if __name__ == "__main__":
     print("FIRST IN FIRST OUT (FIFO) PAGE REPLACEMENT")
     print("=" * 50)
     # Get frame size from user
-    frame_size = int(input("Enter the number of frames: "))
+    frame_size = valid_input("Enter the number of frames: ")
     # Get number of page references from user
-    no_pages = int(input("Enter the number of pages: "))
+    no_pages = valid_input("Enter the number of pages: ")
     # Collect page references from user
     for i in range(no_pages):
-        page = int(input(f"{i+1}. Enter page number: "))
+        page = positive_input(f"{i+1}. Enter page number: ")
         pages.append(page)
     print("=" * 50)
     # Run FIFO simulation
