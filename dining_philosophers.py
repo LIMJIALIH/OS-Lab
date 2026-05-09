@@ -6,11 +6,15 @@ from threading import Semaphore
 
 N = 5  # Number of philosophers
 chopstick = [Semaphore(1) for _ in range(N)]
+room = Semaphore(N - 1)  # Allow only N-1 philosophers to pick chopsticks at a time
 
 def philosopher(id):
     while True:
         print(f'Philosopher {id} is thinking...')
         time.sleep(1)
+
+        # Allow only N-1 philosophers to pick chopsticks (deadlock avoidance)
+        room.acquire()
 
         # Pick up left chopstick
         chopstick[id].acquire()
@@ -26,6 +30,9 @@ def philosopher(id):
 
         # Put down right chopstick
         chopstick[(id + 1) % N].release()
+
+        # Release room to allow another philosopher to eat
+        room.release()
 
         print(f'Philosopher {id} finished eating and put down chopsticks.')
 
