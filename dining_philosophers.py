@@ -4,7 +4,7 @@ import threading
 import time
 from threading import Semaphore
 
-N = 5  # Number of philosophers
+N = int(input("Enter the number of philosophers: "))
 chopstick = [Semaphore(1) for _ in range(N)]
 room = Semaphore(N - 1)  # Allow only N-1 philosophers to pick chopsticks at a time
 
